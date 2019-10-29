@@ -2,9 +2,15 @@
 body {
   max-width: 90%;
   margin: 0 auto;
+  font-family: 'Lato', sans-serif;
 
 }
-
+h1 {
+  text-transform: uppercase;
+  font-size: 1.2em;
+  margin: 2rem 7px;
+  font-weight: 400;
+}
 img {
   display: block;
   border-radius: 50%;
@@ -38,30 +44,58 @@ img {
 
 .info {
   justify-self: start;
+  text-align: start;
+}
+
+.info p,
+h3 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.info p {
+  color: rgb(170, 169, 169);
+}
+
+.modal-info {
+  font-size: 0.8em;
+  color: rgb(170, 169, 169);
+}
+
+hr {
+  height: 1px;
+  background-color:   rgb(196, 194, 194);
+  border: none;
+  margin: 2em 0;
 }
 
 #modal-btn{
   border: none;
+  background: white;
 }
 
-.modal {
+#modal-btn:focus{
+  outline-style: none;
+}
+.my-modal {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(73, 71, 71, 0.6);
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  display: none;
+  display: block;
+  text-align: center;
 }
 
 .modalContent {
   background-color:whitesmoke;
-  margin: 30px auto;
-  width: 70%;
+  margin: 150px auto;
+  width: 60%;
   padding: 2em;
-  color: grey;
+  color: gray;
   text-align: center;
-  position: relative;
+  border-radius: 10px;
 }
 
 .modalContent h3 {
@@ -70,17 +104,48 @@ img {
 
 #closeBtn {
   position: absolute;
-  top: 0.5em;
-  right: 0.6em;
+  top: 160px;
+  right: 21%;
   font-size: 1.6em;
+
 }
 
-.closeBtn:hover,
-.closeBtn:focus {
+#closeBtn:hover,
+#closeBtn:focus {
   color: black;
   cursor: pointer;
 }
 .modalContent img {
   display: block;
   margin: 0 auto;
+}
+
+@media screen and (min-width: 720px) {
+  .employeeList {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .modalContent {
+    width: 40%;
+    margin: 150px auto;
+    max-width: 320px;
+  }
+
+  #closeBtn {
+    right: 32vw;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  body {
+    width: 100%;
+    max-width: 1100px;
+  }
+  .employeeList {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #closeBtn {
+    right: 37vw;
+  }
 }

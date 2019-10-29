@@ -2,6 +2,12 @@ const employeeList = document.getElementById('employeeList');
 const url = 'https://randomuser.me/api/?results=12';
 const list = [];
 let index = 0;
+const modal = document.createElement('div');
+const closeBtn = document.createElement('span');
+const myModal = document.createElement('div');
+modal.className = 'modal';
+closeBtn.id = 'closeBtn';
+myModal.className = 'my-modal';
 
 
 fetch(url)
@@ -11,9 +17,6 @@ fetch(url)
     console.log(data.results);
   })
   
-
-
-// Helper Functions
 
 function generateEmployees(data) {
   data.map(result => {
@@ -36,36 +39,34 @@ function generateEmployees(data) {
 };
 
 function generateModalInfo(index) {
-  const modal = document.querySelector('.modal');
+  const main = document.querySelector('main');
   const person = list[index];
+  const birthday = new Date(person.dob.date).toLocaleString().split(',')[0];
   const html = `
     <div class = 'modalContent'>
-      <span id ='closeBtn'> &times;</span>
       <img class ='modal-employeeImage' src='${person.picture.large}' alt = 'profile-image'>
       <div class ='modal-info'>
         <h3>${person.name.first} ${person.name.last}</h3>
         <p>${person.email}</p>
         <p>${person.location.city}</p>
         <hr>
-        <p>${person.phone}</p>
+        <p>${person.cell}</p>
         <p>${person.location.street.number} ${person.location.street.name} ${person.location.state} ${person.location.postcode}
-        <p>Birthday: ${person.dob.date}
+        <p>Birthday: ${birthday}
       </div>
     </div>
+    
   `
-  modal.innerHTML = html;
-  
+  main.appendChild(modal);
+  closeBtn.innerHTML = '&times';
+  myModal.innerHTML = html;
+  modal.appendChild(myModal);
+  modal.appendChild(closeBtn);
 };
 
-function closeModal() {
-  modal.style.display = 'none';
-};
 
-function outsideClose(e) {
-  if(e.target.className === 'modal') {
-    modal.style.display = 'none';
-  }
-}
+// help function
+
 
 
 function creatModal(e) {
@@ -76,22 +77,34 @@ function creatModal(e) {
 }
 
 function openModal() {
-  modal.style.display = 'block';
+  myModal.style.display = 'block';
+  closeBtn.style.display = 'block';
+}
+
+function closeModal() {
+  myModal.style.display = 'none';
+  closeBtn.style.display = 'none';
+}
+
+
+function outsideClose(e) {
+  if(e.target === myModal) {
+    closeModal();
+  }
 }
 
 // Events
-const modalBtn = document.querySelector('#modal-btn');
-const closeBtn = document.querySelector('#closeBtn');
-const modal = document.querySelector('.modal');
 
-modalBtn.addEventListener('click', (e) => {
-  creatModal(e);
-  openModal();
+employeeList.addEventListener('click', (e) => {
+  if (e.target.className === 'employee-card') {
+    creatModal(e);
+    openModal();
+  }
 });
 
-closeBtn.addEventListener('click', closeModal());
+closeBtn.addEventListener('click', closeModal);
 
-window.addEventListener('click', outsideClose());
+window.addEventListener('click', outsideClose);
 
-
+document.addEventListener('keydown', closeModal);
 
