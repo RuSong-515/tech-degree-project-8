@@ -67,11 +67,17 @@ function generateModalInfo(index) {
 
 // help function
 
-
+function getIndex(e) {
+  if(e.target.className === 'employee-card') {
+    return e.target.getAttribute('index');
+  } else if (e.target.parentNode.className === 'employee-card') {
+    return e.target.parentNode.getAttribute('index');
+  }
+}
 
 function creatModal(e) {
   const modal = document.querySelector('.modal');
-  const personIndex = e.target.closest('.employee-card').getAttribute('index');
+  let personIndex = getIndex(e);
   generateModalInfo(personIndex);
   return generateModalInfo;
 }
