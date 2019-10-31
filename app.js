@@ -21,16 +21,16 @@ fetch(url)
 function generateEmployees(data) {
   data.map(result => {
     const html = `
-      <button id='modal-btn'>
+      
         <section class = 'employee-card' index = ${index}>
           <img class = 'employeeImage' src='${result.picture.large}' alt = 'profile-image'>
-          <div class = 'info'>
-            <h3>${result.name.first} ${result.name.last}</h3>
-            <p>${result.email}</p>
-            <p>${result.location.city}</p>
-          </div>
+          
+            <h3 class = 'info-detail'>${result.name.first} ${result.name.last}</h3>
+            <p class = 'info-detail'>${result.email}</p>
+            <p class = 'info-detail'>${result.location.city}</p>
+         
         </section>
-      </button>
+  
     `
     index++;
     list.push(result);
@@ -102,7 +102,7 @@ function outsideClose(e) {
 // Events
 
 employeeList.addEventListener('click', (e) => {
-  if (e.target.className === 'employee-card') {
+  if (e.target.className === 'employee-card' || e.target.className === 'employeeImage' || e.target.className === 'info-detail') {
     creatModal(e);
     openModal();
   }
